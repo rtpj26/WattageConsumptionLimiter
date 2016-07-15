@@ -73,6 +73,9 @@ void sendSMS(String message, String number){
 
 void increaseWattageLimit(){
   wattageLimit += 1.00; //increase wattage limit
+  if(wattageLimit >= 65000){
+    wattageLimit = 65000;
+  }
   EEPROM.write(0, wattageLimit); //regiter in memory location 0x00
   updateLimitandCount(); //update LCD
   delay(75); //wait 75ms to prevent an increase of more than 1
@@ -81,6 +84,9 @@ void increaseWattageLimit(){
 //same functionality as increaseWattageLimit, except this one decreases
 void decreaseWattageLimit(){
   wattageLimit -= 1.00; 
+  if(wattageLimit <= 0){
+    wattageLimit = 0;
+  }
   EEPROM.write(0, wattageLimit);
   updateLimitandCount();
   delay(75);
